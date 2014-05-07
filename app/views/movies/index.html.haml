@@ -1,0 +1,20 @@
+%section.container
+  %article.avi
+    %h3
+      avi Movies
+    %ul
+      - @avi_movies.each do |movie|
+        %li
+          %span
+            = link_to movie.title, movie_path(movie)
+            - unless movie.converted == true
+              = link_to "Convert to mp4", convert_to_mp4_movie_path(movie), class: 'btn btn-small btn-info'
+  %article.mp4
+    %h3
+      mp4 Movies
+    %ul
+      - @mp4_movies.each do |movie|
+        %li
+          %span
+            = link_to movie.title, movie_path(movie)
+
