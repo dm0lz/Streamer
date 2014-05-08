@@ -4,7 +4,6 @@ class MoviesController < ApplicationController
     @movies = Movie.all
     @avi_movies = Movie.where(type: "avi")
     @mp4_movies = Movie.where(type: "mp4")
-    #binding.pry
   end
 
   def show
@@ -13,9 +12,6 @@ class MoviesController < ApplicationController
 
   def convert_to_mp4
     @movie = Movie.find params[:id]
-    #@converter = FormatConverter.new(@movie.path)
-    #@converter.delay.convert_avi_to_mp4
-    #binding.pry
     Resque.enqueue(Converter, @movie.path)
     @movie.converted = true
     @movie.save

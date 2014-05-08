@@ -22,6 +22,7 @@ module FrStream
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
     # config.time_zone = 'Central Time (US & Canada)'
     config.movies_path = "/Users/molz/Desktop/films/"
+    config.streamable_movies_path = "/Users/molz/Desktop/Streamer/public/movies/"
 
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
