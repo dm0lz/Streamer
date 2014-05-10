@@ -20,6 +20,7 @@ class MoviesController < ApplicationController
   end
 
   def progress_poll
+    MovieParser.update_movies
     @mp4_movies = Movie.where(type: "mp4")
     @txts_paths = @mp4_movies.map{|l| l.path.concat('.txt')}
     @progress = {}

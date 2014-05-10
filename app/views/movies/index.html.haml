@@ -24,22 +24,11 @@
             = link_to movie.title, movie_path(movie)
 :coffee
   $ ->
-    $("#click").click ->
-      $.get( "#{ movies_progress_poll_url }", (data) ->
-        console.log(data)
-      ) 
--#:javascript
--#  (function poll() {
--#    setTimeout(function() {
--#      $.ajax({
--#        url: "#{ movies_progress_poll_url }",
--#        type: "GET",
--#        success: function(data) {
--#          console.log(JSON.stringify(data));
--#        },
--#        dataType: "json",
--#        complete: poll,
--#        timeout: 2000
--#      })
--#    }, 10000);
--#  })();
+    ( poll = ->
+      setTimeout ( ->
+        $.get( "#{ movies_progress_poll_url }", (data) ->
+          console.log(data)
+        )
+        poll()
+      ), 2500
+    )()
