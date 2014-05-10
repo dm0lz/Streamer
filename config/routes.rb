@@ -9,6 +9,7 @@ FrStream::Application.routes.draw do
   get "home/index"
   get "home/show"
 
+  get 'movies/progress_poll', to: "movies#progress_poll"
   resources :movies, only: [:index, :show]  do
     member do
       get :convert_to_mp4

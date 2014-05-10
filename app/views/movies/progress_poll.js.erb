@@ -1,0 +1,4 @@
+
+<%- @progress.each do |key, value| %>
+  $(".<%= key %>.progress-bar").css({"width":"<%= value %>%"});
+<% end %>

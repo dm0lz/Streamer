@@ -5,7 +5,12 @@ module MovieParser
 
   def self.update_movies
     @avi_movies = %x(ls #{MOVIES_PATH + "avi/**.avi"}).gsub("\n", "").split(".avi").map{|l| l.concat(".avi")}
-    @avi_movies.each{|l| Movie.where(title: l.sub("#{MOVIES_PATH + 'avi/'}", ""), path: l, type: "avi").first_or_create}
+    @avi_movies.each do |l| 
+      input = l
+      cmd = "ffmpeg -i '#{input}' 2>&1 | grep 'Duration'| cut -d ' ' -f 4 | sed s/,//"
+      movie_duration = %x(#{cmd}).sub("\n","")
+      Movie.where(title: l.sub("#{MOVIES_PATH + 'avi/'}", ""), path: l, type: "avi", duration: movie_duration).first_or_create
+    end
     puts "#{@avi_movies.count} avi movies updated" 
 
     @mp4_movies = %x(ls #{STREAMABLE_MOVIES_PATH + "mp4/**.mp4"}).gsub("\n", "").split(".mp4").map{|l| l.concat(".mp4")}

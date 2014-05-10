@@ -7,8 +7,13 @@
         %li
           %span
             = movie.title
-            - unless movie.converted == true
+            - if movie.converted == false
               = link_to "Convert to mp4", convert_to_mp4_movie_path(movie), class: 'btn btn-small btn-info'
+            - else
+              %div.progress
+                %div.progress-bar{role: "progressbar", style: "width:0%;", class: movie.id}
+              %button#click
+                Refresh
   %article.mp4
     %h3
       mp4 Movies (streamable)
@@ -17,4 +22,24 @@
         %li
           %span
             = link_to movie.title, movie_path(movie)
-
+:coffee
+  $ ->
+    $("#click").click ->
+      $.get( "#{ movies_progress_poll_url }", (data) ->
+        console.log(data)
+      ) 
+-#:javascript
+-#  (function poll() {
+-#    setTimeout(function() {
+-#      $.ajax({
+-#        url: "#{ movies_progress_poll_url }",
+-#        type: "GET",
+-#        success: function(data) {
+-#          console.log(JSON.stringify(data));
+-#        },
+-#        dataType: "json",
+-#        complete: poll,
+-#        timeout: 2000
+-#      })
+-#    }, 10000);
+-#  })();

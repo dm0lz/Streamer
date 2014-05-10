@@ -7,7 +7,7 @@ class FormatConverter
   end
 
   def convert_avi_to_mp4
-    cmd = "ffmpeg -i '#{@input}' -vcodec libx264 -crf 23 -movflags faststart -preset ultrafast '#{@output}'"
+    cmd = "ffmpeg -i '#{@input}' -vcodec libx264 -crf 23 -movflags faststart -preset ultrafast '#{@output}' 1>'#{@output + '.txt'}' 2>&1"
     %x(#{cmd})
   end
 
