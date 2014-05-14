@@ -39,6 +39,11 @@ class MoviesController < ApplicationController
     #render json: @progress.to_json
   end
 
+  def update_movies
+    MovieParser.update_movies
+    redirect_to movies_path
+  end
+
   def ffmpeg_time_to_second timestamp
     hours = timestamp[0..1].to_i * 60 * 60
     minutes = timestamp[3..4].to_i * 60

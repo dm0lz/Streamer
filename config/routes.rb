@@ -4,12 +4,13 @@ FrStream::Application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root 'home#index'
+  root 'movies#index'
 
   get "home/index"
   get "home/show"
 
   get 'movies/progress_poll', to: "movies#progress_poll"
+  get 'movies/update_movies', to: "movies#update_movies"
   resources :movies, only: [:index, :show]  do
     member do
       get :convert_to_mp4
